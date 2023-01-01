@@ -86,3 +86,48 @@ public:
         return -1;
     }
 };
+
+
+/*Search in a row and column wise sorted matrix*/
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+
+        int low = 0 , high = m - 1;
+        int col = 0;
+        int row = -1;
+        while(low <= high) {
+            int mid = (low + high) >> 1;
+
+            if(matrix[mid][col] == target) {
+                return true;
+            }
+            else if(matrix[mid][col] > target) {
+                high = mid - 1;
+            }
+            else {
+                row = mid;
+                low = mid + 1;
+            }
+     
+        }
+        if(row == -1) return false;
+
+        low = 0 , high = n - 1;
+        
+        while(low <= high) {
+            int mid = (low + high) >> 1;
+
+            if(matrix[row][mid] == target) return true;
+
+            else if(matrix[row][mid] > target) {
+                high = mid - 1;
+            }
+            else
+            low = mid + 1;
+        }
+        return false;
+    }
+};
